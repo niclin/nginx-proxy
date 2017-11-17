@@ -9,6 +9,10 @@ RUN apt-get update \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/*
 
+RUN apt-get update
+RUN apt-get install vim
+COPY files/run.sh /
+
 
 # Configure Nginx and apply fix for very long server names
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf \
@@ -35,3 +39,4 @@ VOLUME ["/etc/nginx/certs", "/etc/nginx/dhparam"]
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["forego", "start", "-r"]
+ENTRYPOINT ["/run.sh"]

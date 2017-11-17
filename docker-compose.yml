@@ -1,12 +1,15 @@
 version: '2'
 services:
   nginx-proxy:
-    image: jwilder/nginx-proxy
+    image: niclin/nginx-proxy
     container_name: nginx-proxy
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - BASIC_AUTH_USERNAME=username
+      - BASIC_AUTH_PASSWORD=password
 
   whoami:
     image: jwilder/whoami
